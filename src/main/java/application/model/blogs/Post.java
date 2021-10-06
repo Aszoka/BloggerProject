@@ -3,6 +3,7 @@ package application.model.blogs;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,6 +33,10 @@ public class Post {
     @Getter
     @Setter
     private List<Comment> commentList;
+
+    @Getter
+    @Setter
+    private Date edited;
 
     public Post(long postID,
                 String postAuthorID,

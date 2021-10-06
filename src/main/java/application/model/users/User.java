@@ -53,6 +53,9 @@ public class User {
         enabled = true;
     }
 
+    public User() {
+    }
+
     public String toString(){
         return  "Username: " + username + ", " +
                 "Name: " + fullName + ", " +

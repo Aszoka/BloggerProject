@@ -22,6 +22,11 @@ public class UserController {
         allUsers = dbEngine.loadAllUsers();
         System.out.println("search userinfo");
         getUserData(allUsers.get(0),"Poetrist");
+        User user = allUsers.get(3);
+        System.out.println(user.getFullName());
+        user.setFullName("Edgar A. Poe");
+        changeOldUserData(user);
+        System.out.println(user.getFullName());
 
     }
 
@@ -50,7 +55,13 @@ public class UserController {
     }
 
     public void changeOldUserData(User oldUserWithNewData) {
-
+           for(User u : allUsers){
+               if(u.getUser_id() == oldUserWithNewData.getUser_id()){
+                   u = oldUserWithNewData;
+               } else{
+                   System.out.println("no changes");
+               }
+           }
     }
 
     public void changeUserPassword(long userId, String newPassword) {

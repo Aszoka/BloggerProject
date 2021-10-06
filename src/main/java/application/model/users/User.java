@@ -14,8 +14,10 @@ public class User {
     @Getter
     private String username;
     @Getter
+    @Setter
     private String fullName;
     @Getter
+    @Setter
     private String email_address;
     @Getter
     private Timestamp regTime;

@@ -61,6 +61,6 @@ public class Post {
     public String toString(){
         return "Post written by: " + postAuthorID +
                 " Post title: " + postTitle + "\n" +
-                postBody;
+                postBody + " Comments: " + commentList;
     }
 }

@@ -19,6 +19,10 @@ public class BlogController {
         allUsers = dbEngine.loadAllUsers();
     }
 
+    public String readPost(Post post){
+        return post.toString();
+    }
+
     public Post editPost(User user, Post post, String newTitle, String newText){
 
         if(canUpdate(user, post)){

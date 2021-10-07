@@ -63,7 +63,7 @@ public class UserController {
 
     public void changeOldUserData(User oldUserWithNewData) {
            for(User u : allUsers){
-               if(u.getUser_id() == oldUserWithNewData.getUser_id()){
+               if(u.getUser_id() == oldUserWithNewData.getUser_id() || u.getRole().getLabel().equals("admin")){
                    u = oldUserWithNewData;
                } /*else{
                    System.out.println("no changes");

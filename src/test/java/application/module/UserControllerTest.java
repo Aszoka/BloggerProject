@@ -43,7 +43,7 @@ class UserControllerTest {
 
         List<User> expected = new LinkedList<>();
         expected.add(testUserList.get(0));
-       // expected.add(testUserList.get(5));
+
         List<User> actual = ucTest.getUsersByRole(Role.ADMIN);
 
         Assertions.assertTrue(compareLists(expected,actual));

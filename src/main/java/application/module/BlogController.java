@@ -1,6 +1,7 @@
 package application.module;
 
 import application.database.DBEngine;
+import application.model.blogs.Comment;
 import application.model.blogs.Post;
 import application.model.users.User;
 import lombok.Getter;
@@ -30,6 +31,13 @@ public class BlogController {
             post.setPostBody(newText);
         }
         return post;
+    }
+
+    public Comment writeComment(Post post){
+        Comment comment = new Comment();
+        post.getCommentList().add(comment);
+
+        return comment;
     }
 
     private boolean canUpdate(User user, Post post){

@@ -56,6 +56,18 @@ public class User {
         enabled = true;
     }
 
+    public User(long user_id, String username, String fullName, String email_address, String password, Role role) {
+        this.user_id = user_id;
+        this.username = username;
+        this.fullName = fullName;
+        this.email_address = email_address;
+        this.password = password;
+        this.role = role;
+
+        blogList = new LinkedList<>();
+        enabled = true;
+    }
+
     public User() {
     }
 

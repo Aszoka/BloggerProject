@@ -58,6 +58,16 @@ public class Post {
         commentList = new LinkedList<>();
     }
 
+    public Post(long postID, String postAuthorID, long blogID, String postTitle, String postBody) {
+        this.postID = postID;
+        this.postAuthorID = postAuthorID;
+        this.blogID = blogID;
+        this.postTitle = postTitle;
+        this.postBody = postBody;
+
+        commentList = new LinkedList<>();
+    }
+
     public String toString(){
         return "Post written by: " + postAuthorID +
                 " Post title: " + postTitle + "\n" +

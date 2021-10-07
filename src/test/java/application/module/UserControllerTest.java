@@ -50,7 +50,27 @@ class UserControllerTest {
     }
 
     @Test
-    void getUserData() {
+    void getUserDataOwn() {
+        User expected = testUserList.get(4);
+        User actual = ucTest.getUserData(testUserList.get(4), "sanyi823");
+
+        Assertions.assertEquals(expected,actual);
+    }
+
+    @Test
+    void getUserDataAdmin() {
+        User expected = testUserList.get(4);
+        User actual = ucTest.getUserData(testUserList.get(0), "sanyi823");
+
+        Assertions.assertEquals(expected,actual);
+    }
+
+    @Test
+    void getUserDataNoPermission() {
+        User expected = null;
+        User actual = ucTest.getUserData(testUserList.get(3), "sanyi823");
+
+        Assertions.assertEquals(null,actual);
     }
 
     @Test

@@ -61,12 +61,13 @@ public class UserController {
         return null;
     }
 
-    public void changeOldUserData(User oldUserWithNewData) {
+    public User changeOldUserData(User oldUserWithNewData) {
            for(User u : allUsers){
                if(u.getUser_id() == oldUserWithNewData.getUser_id() || u.getRole().getLabel().equals("admin")){
                    u = oldUserWithNewData;
                }
            }
+           return oldUserWithNewData;
     }
 
     public void changeUserPassword(long userId, String newPassword) {

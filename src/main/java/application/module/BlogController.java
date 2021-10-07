@@ -17,7 +17,7 @@ public class BlogController {
 
     public BlogController() {
         dbEngine = new DBEngine();
-        allUsers = dbEngine.loadAllUsers();
+        allUsers = dbEngine.getAllUsers();
     }
 
     public String readPost(Post post){
@@ -33,11 +33,13 @@ public class BlogController {
         return post;
     }
 
-    public Comment writeComment(Post post){
-        Comment comment = new Comment();
-        post.getCommentList().add(comment);
-
-        return comment;
+    public Comment writeComment(Post post, User user, String commentText){
+        if(allUsers.contains(user)){
+            Comment comment = new Comment(4,user.getUsername(), post.getPostID(), commentText);
+            post.getCommentList().add(comment);
+            return comment;
+        }
+        return null;
     }
 
     private boolean canUpdate(User user, Post post){

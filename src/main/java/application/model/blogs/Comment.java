@@ -41,6 +41,15 @@ public class Comment {
         replies = new LinkedList<>();
     }
 
+    public Comment(long commentID, String commentAuthorID, long postID, String commentText) {
+        this.commentID = commentID;
+        this.commentAuthorID = commentAuthorID;
+        this.postID = postID;
+        this.commentText = commentText;
+
+        replies = new LinkedList<>();
+    }
+
     @Override
     public String toString() {
         return "Comment{" +

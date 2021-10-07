@@ -8,6 +8,7 @@ import application.model.blogs.PostType;
 import application.model.template.Template;
 import application.model.users.Role;
 import application.model.users.User;
+import lombok.Getter;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -17,6 +18,7 @@ import java.util.Properties;
 public class DBEngine {
     Connection connection;
     ConfigReader configReader;
+    @Getter
     private List<User> allUsers;
     private List<Template> templates;
 
@@ -27,6 +29,7 @@ public class DBEngine {
         allUsers = new LinkedList<>();
         templates = new LinkedList<>();
         loadAllUsers();
+       // System.out.println(allUsers);
 
     }
 

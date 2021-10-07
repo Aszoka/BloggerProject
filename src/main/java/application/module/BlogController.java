@@ -21,10 +21,18 @@ public class BlogController {
 
     public Post editPost(User user, Post post, String newTitle, String newText){
 
-        if(post.getPostAuthorID().equals(user.getUsername())){
+        if(canUpdate(user, post)){
             post.setPostTitle(newTitle);
             post.setPostBody(newText);
         }
         return post;
+    }
+
+    private boolean canUpdate(User user, Post post){
+        if(post.getPostAuthorID().equals(user.getUsername())){
+            return true;
+        }
+
+        return false;
     }
 }

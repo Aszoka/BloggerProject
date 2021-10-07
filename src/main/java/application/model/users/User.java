@@ -24,6 +24,7 @@ public class User {
     @Getter
     private byte[] profilePic;
     @Getter
+    @Setter
     private String password;
     @Getter
     private Role role;

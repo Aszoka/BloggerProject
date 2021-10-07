@@ -65,14 +65,23 @@ public class UserController {
            for(User u : allUsers){
                if(u.getUser_id() == oldUserWithNewData.getUser_id() || u.getRole().getLabel().equals("admin")){
                    u = oldUserWithNewData;
-               } /*else{
-                   System.out.println("no changes");
-               }*/
+               }
            }
     }
 
     public void changeUserPassword(long userId, String newPassword) {
 
+        for(User u : allUsers){
+            if(u.getUser_id() == userId){
+                u.setPassword(newPassword);
+            }
+        }
+    }
+
+    public void banUser (User user, User toBeBanned){
+        if(user.getRole().getLabel().equals("admin")){
+            toBeBanned.setEnabled(false);
+        }
     }
 
 }

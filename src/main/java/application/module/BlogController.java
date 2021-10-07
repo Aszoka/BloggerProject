@@ -1,11 +1,13 @@
 package application.module;
 
 import application.database.DBEngine;
+import application.model.blogs.Blog;
 import application.model.blogs.Comment;
 import application.model.blogs.Post;
 import application.model.users.User;
 import lombok.Getter;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class BlogController {
@@ -33,9 +35,22 @@ public class BlogController {
         return post;
     }
 
-    public Comment writeComment(Post post, User user, String commentText){
+    public List<Post> deletePost(User user, Post post, Blog blog){
+        List<Post> newPostList = new LinkedList<>();
+        if(canUpdate(user, post)){
+            for(Post p : blog.getPostList()){
+                if( post == p) {
+                    blog.getPostList().remove(post);
+                    newPostList = blog.getPostList();
+                }
+            }
+        }
+        return  newPostList;
+    }
+
+    public Comment writeComment(Post post, User user, String commentText, long commentID){
         if(allUsers.contains(user)){
-            Comment comment = new Comment(4,user.getUsername(), post.getPostID(), commentText);
+            Comment comment = new Comment(commentID,user.getUsername(), post.getPostID(), commentText);
             post.getCommentList().add(comment);
             return comment;
         }
@@ -43,10 +58,6 @@ public class BlogController {
     }
 
     private boolean canUpdate(User user, Post post){
-        if(post.getPostAuthorID().equals(user.getUsername())){
-            return true;
-        }
-
-        return false;
+        return post.getPostAuthorID().equals(user.getUsername()) || user.getRole().getLabel().equals("admin");
     }
 }

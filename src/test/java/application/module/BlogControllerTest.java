@@ -8,8 +8,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BlogControllerTest {
-
-    private BlogController bcTester = new BlogController();
+    BlogController bcTester = new BlogController();
     private List<User> usersTest = bcTester.getAllUsers();
 
     @Test

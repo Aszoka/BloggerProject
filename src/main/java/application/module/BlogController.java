@@ -6,6 +6,7 @@ import application.model.blogs.Comment;
 import application.model.blogs.Post;
 import application.model.users.User;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,6 +15,7 @@ public class BlogController {
     /** create blog, create post, edit, delete etc
      * comments?*/
     @Getter
+    @Setter
     private List<User> allUsers;
     private DBEngine dbEngine;
 

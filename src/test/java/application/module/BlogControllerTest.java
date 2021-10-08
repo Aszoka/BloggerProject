@@ -1,11 +1,13 @@
 package application.module;
 
+import application.database.DBEngine;
 import application.model.blogs.Blog;
 import application.model.blogs.Comment;
 import application.model.blogs.Post;
 import application.model.users.Role;
 import application.model.users.User;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -17,22 +19,35 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class BlogControllerTest {
-    @Mock
+
     BlogController bcTester = new BlogController();
     List<User> usersTest = new LinkedList<>();
+
+    @BeforeEach
+    void init(){
+
+        usersTest = loadUserTest();
+        bcTester = new BlogController();
+        bcTester.setAllUsers(usersTest);
+
+        System.out.println(usersTest);
+    }
 
 
 
     @Test
     void readPost() {
-        Mockito.when(bcTester.getAllUsers()).thenReturn(loadUserTest());
-        Mockito.when(bcTester.readPost(usersTest.get(1).getBlogList().get(0).getPostList().get(0))).thenCallRealMethod();
 
-        String expected = usersTest.get(1).getBlogList().get(0).getPostList().get(0).toString();
-        String actual = bcTester.readPost(usersTest.get(1).getBlogList().get(0).getPostList().get(0));
+        Post tester = usersTest.get(1).getBlogList().get(0).getPostList().get(0);
+
+
+        String expected = tester.toString();
+        String actual = bcTester.readPost(tester);
 
         Assertions.assertEquals(expected,actual);
 

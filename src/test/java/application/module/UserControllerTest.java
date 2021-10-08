@@ -3,11 +3,8 @@ package application.module;
 import application.model.users.Role;
 import application.model.users.User;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,7 +20,7 @@ class UserControllerTest {
      User magda = testUserList.get(5);
      User poe = testUserList.get(3);
 
-
+/*
     List<User> loadUserTest(){
         long millis = System.currentTimeMillis();
 
@@ -40,7 +37,7 @@ class UserControllerTest {
         testUserList.add(user);
 
         return  testUserList;
-    }
+    }*/
 
     @Test
     void getUsersByRole() {
@@ -73,7 +70,7 @@ class UserControllerTest {
     void getUserDataNoPermission() {
         User actual = ucTest.getUserData(testUserList.get(3), "sanyi823");
 
-        Assertions.assertEquals(null,actual);
+        assertNull(actual);
     }
 
     @Test
@@ -82,6 +79,7 @@ class UserControllerTest {
         changed.setFullName("Murakami Haruki");
         User expected = testUserList.get(2);
         User actual = ucTest.changeOldUserData(testUserList.get(2));
+        Assertions.assertEquals(expected,actual);
     }
 
     @Test //???

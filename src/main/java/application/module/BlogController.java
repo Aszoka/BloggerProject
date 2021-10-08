@@ -33,8 +33,9 @@ public class BlogController {
         if(canUpdate(user, post)){
             post.setPostTitle(newTitle);
             post.setPostBody(newText);
+            return post;
         }
-        return post;
+        return null;
     }
 
     public List<Post> deletePost(User user, Post post, Blog blog){
@@ -44,10 +45,10 @@ public class BlogController {
                 if( post == p) {
                     blog.getPostList().remove(post);
                     newPostList = blog.getPostList();
+                    return  newPostList;
                 }
             }
-        }
-        return  newPostList;
+        } return null;
     }
 
     public Comment writeComment(Post post, User user, String commentText, long commentID){

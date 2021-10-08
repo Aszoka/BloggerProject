@@ -51,20 +51,76 @@ class BlogControllerTest {
 
         Assertions.assertEquals(expected,actual);
 
-
-
     }
 
     @Test
     void editPost() {
+        User editor = usersTest.get(1);
+        Post toBeEdited = usersTest.get(1).getBlogList().get(0).getPostList().get(0);
+        String newTitle = "Will this work?";
+        String newText = "We will see....";
+
+        Post expected = toBeEdited;
+        expected.setPostTitle(newTitle);
+        expected.setPostBody(newText);
+
+        Assertions.assertEquals(expected, bcTester.editPost(editor, toBeEdited, newTitle, newText));
+
+
+    }
+
+    @Test
+    void editPostNoPermission() {
+        User editor = usersTest.get(2);
+        Post toBeEdited = usersTest.get(1).getBlogList().get(0).getPostList().get(0);
+        String newTitle = "I wanna get some trolling done";
+        String newText = "We will see....";
+
+        Post expected = toBeEdited;
+        expected.setPostTitle(newTitle);
+        expected.setPostBody(newText);
+
+        Assertions.assertNull( bcTester.editPost(editor, toBeEdited, newTitle, newText));
+
+
     }
 
     @Test
     void deletePost() {
+
+        User deleter = usersTest.get(1);
+        Post toBeDeleted = deleter.getBlogList().get(0).getPostList().get(1);
+
+        List<Post> expected = new LinkedList<>();
+        expected.add(deleter.getBlogList().get(0).getPostList().get(0));
+        List<Post> actual = bcTester.deletePost(deleter, toBeDeleted,deleter.getBlogList().get(0));
+
+        Assertions.assertTrue(compareLists(expected, actual));
+
+
+    }
+
+    @Test
+    void deletePostNoPermission() {
+
+        User deleter = usersTest.get(2);
+        Post toBeDeleted = usersTest.get(1).getBlogList().get(0).getPostList().get(1);
+        Blog blog = usersTest.get(1).getBlogList().get(0);
+
+        Assertions.assertNull(bcTester.deletePost(deleter, toBeDeleted, blog));
     }
 
     @Test
     void writeComment() {
+        User commenter = usersTest.get(0);
+        Post commented = usersTest.get(1).getBlogList().get(0).getPostList().get(0);
+        String comment = "comment";
+        long commentId = 4;
+
+        Comment expected = new Comment(commentId,commenter.getUsername(),commented.getPostID(),comment);
+        Comment actual = bcTester.writeComment(commented,commenter,comment,commentId);
+
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
@@ -112,6 +168,8 @@ class BlogControllerTest {
         second.getBlogList().add(loadBlogTest(1,"Testing Blog Title","user","Sparrow"));
         second.getBlogList().get(0).getPostList().add(loadPost(1,"user", 1,"post title",
                 "this is a test post"));
+        second.getBlogList().get(0).getPostList().add(loadPost(2,"user", 1,"to be removed",
+                "this is a test post for removing the post xD"));
         second.getBlogList().get(0).getPostList().get(0).getCommentList().add(loadComment(
                 1,
                 "adminTest",
@@ -119,31 +177,48 @@ class BlogControllerTest {
                 "Test comment"
         ));
 
+        User third = new User(
+                3,
+                "theBadOne",
+                "I can't change",
+                "noppee@test.com",
+                "nope",
+                Role.USER);
         usersTest.add(user);
         usersTest.add(second);
+        usersTest.add(third);
 
         return  usersTest;
     }
 
     Blog loadBlogTest(long id, String title, String username, String template){
-        Blog blog = new Blog(
+
+        return new Blog(
                 id,
                 title,
                 username,
                 template
         );
-
-        return blog;
     }
 
     Post loadPost(long id, String username, long blogId, String title, String text){
-        Post post = new Post(id, username,blogId,title,text);
-        return post;
+        return new Post(id, username,blogId,title,text);
     }
 
     Comment loadComment(long commentId, String username, long postId, String text){
-        Comment comment = new Comment(commentId,username,postId,text);
 
-        return  comment;
+        return new Comment(commentId,username,postId,text);
+    }
+
+    private <T> boolean compareLists(List<T> expected, List<T> actual) {
+        if (!(expected.size() == actual.size())) {
+            return false;
+        }
+        for (int i = 0; i < expected.size(); i++) {
+            if (!(expected.get(i).equals(actual.get(i))))
+                return false;
+        }
+
+        return true;
     }
 }

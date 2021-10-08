@@ -44,6 +44,7 @@ class UserControllerTest {
 
         List<User> expected = new LinkedList<>();
         expected.add(testUserList.get(0));
+        expected.add(testUserList.get(5));
 
         List<User> actual = ucTest.getUsersByRole(Role.ADMIN);
 
@@ -80,14 +81,6 @@ class UserControllerTest {
         User expected = testUserList.get(2);
         User actual = ucTest.changeOldUserData(testUserList.get(2));
         Assertions.assertEquals(expected,actual);
-    }
-
-    @Test //???
-    void changeOldUserDataNoPermission() {
-        User changed = testUserList.get(2);
-        changed.setFullName("Murakami Haruki");
-        User expected = testUserList.get(2);
-        User actual = ucTest.changeOldUserData(testUserList.get(2));
     }
 
     @Test

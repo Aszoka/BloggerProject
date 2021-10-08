@@ -59,7 +59,7 @@ public class BlogController {
         return null;
     }
 
-    private boolean canUpdate(User user, Post post){
+    public boolean canUpdate(User user, Post post){
         return (post.getPostAuthorID().equals(user.getUsername()) || user.getRole().getLabel().equals("admin"))
                 && user.isEnabled();
     }

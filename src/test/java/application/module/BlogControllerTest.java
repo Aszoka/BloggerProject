@@ -67,6 +67,30 @@ class BlogControllerTest {
     void writeComment() {
     }
 
+    @Test
+    void canUpdate(){
+        User tester = usersTest.get(1);
+        Post test = tester.getBlogList().get(0).getPostList().get(0);
+
+        Assertions.assertTrue(bcTester.canUpdate(tester, test));
+    }
+
+    @Test
+    void canUpdateNoPermission(){
+        User tester = usersTest.get(1);
+        Post test = new Post(10, "magda", 12,"title", "text");
+
+        Assertions.assertFalse(bcTester.canUpdate(tester, test));
+    }
+
+    @Test
+    void canUpdateAdmin(){
+        User tester = usersTest.get(0);
+        Post test = usersTest.get(1).getBlogList().get(0).getPostList().get(0);
+
+        Assertions.assertTrue(bcTester.canUpdate(tester, test));
+    }
+
     List<User> loadUserTest(){
 
         User user = new User(

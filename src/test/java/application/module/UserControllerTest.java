@@ -20,6 +20,8 @@ class UserControllerTest {
      List<User> testUserList = ucTest.getAllUsers();
      User admin = testUserList.get(0);
      User sanyi = testUserList.get(4);
+     User magda = testUserList.get(5);
+     User poe = testUserList.get(3);
 
 
     List<User> loadUserTest(){
@@ -91,11 +93,41 @@ class UserControllerTest {
     }
 
     @Test
+    void editPassword() {
+        String oldPassInput = "ejjmiakő";
+        String newPassInput = "tyúkanyó";
+
+        Assertions.assertTrue(ucTest.editPassword(sanyi,oldPassInput,newPassInput));
+    }
+
+    @Test
+    void editPasswordWrongPass() {
+        String oldPassInput = "kend";
+        String newPassInput = "tyúkanyó";
+
+        Assertions.assertFalse(ucTest.editPassword(sanyi,oldPassInput,newPassInput));
+    }
+    @Test
     void changeUserPassword() {
         String input = "tyúkanyó";
         long inputId = sanyi.getUser_id();
 
-        Assertions.assertTrue(ucTest.changeUserPassword(inputId,input));
+      Assertions.assertEquals("tyúkanyó", ucTest.changeUserPassword(inputId, input));
+    }
+
+    @Test
+    void banUser() {
+        Assertions.assertTrue(ucTest.banUser(magda, sanyi));
+    }
+
+    @Test
+    void banUserNotAdmin() {
+        Assertions.assertFalse(ucTest.banUser(sanyi, poe));
+    }
+
+    @Test
+    void banUserWhoIsAdmin() {
+        Assertions.assertFalse(ucTest.banUser(admin,magda));
     }
 
     private <T> boolean compareLists(List<T> expected, List<T> actual) {

@@ -70,22 +70,30 @@ public class UserController {
            return oldUserWithNewData;
     }
 
+    public boolean editPassword(User user, String oldPassword, String newPass ){
+        if(user.getPassword().equals(oldPassword)){
+           user.setPassword(changeUserPassword(user.getUser_id(), newPass));
+            return true;
+        } return false;
+    }
     // todo: asking for old password, separate method before calling this
-    public boolean changeUserPassword(long userId, String newPassword) {
+    public String changeUserPassword(long userId, String newPassword) {
 
         for(User u : allUsers){
             if(u.getUser_id() == userId){
                 u.setPassword(newPassword);
-                return true;
+                return newPassword;
             }
         }
-        return false;
+        return null;
     }
 
-    public void banUser (User user, User toBeBanned){
-        if(user.getRole().getLabel().equals("admin")){
+    public boolean banUser(User user, User toBeBanned) {
+        if (user.getRole().getLabel().equals("admin") && !(toBeBanned.getRole().getLabel().equals("admin"))) {
             toBeBanned.setEnabled(false);
+            return true;
         }
+        return false;
     }
 
 }

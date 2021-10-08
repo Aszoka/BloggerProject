@@ -70,13 +70,15 @@ public class UserController {
            return oldUserWithNewData;
     }
 
-    public void changeUserPassword(long userId, String newPassword) {
+    public boolean changeUserPassword(long userId, String newPassword) {
 
         for(User u : allUsers){
             if(u.getUser_id() == userId){
                 u.setPassword(newPassword);
+                return true;
             }
         }
+        return false;
     }
 
     public void banUser (User user, User toBeBanned){

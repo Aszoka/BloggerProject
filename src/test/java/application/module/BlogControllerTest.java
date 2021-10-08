@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.Timestamp;
 import java.util.LinkedList;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 class BlogControllerTest {
     @Mock
     BlogController bcTester = new BlogController();
@@ -27,7 +29,7 @@ class BlogControllerTest {
     @Test
     void readPost() {
         Mockito.when(bcTester.getAllUsers()).thenReturn(loadUserTest());
-    //    Mockito.when(bcTester.readPost(usersTest.get(1).getBlogList().get(0).getPostList().get(0))).thenCallRealMethod();
+        Mockito.when(bcTester.readPost(usersTest.get(1).getBlogList().get(0).getPostList().get(0))).thenCallRealMethod();
 
         String expected = usersTest.get(1).getBlogList().get(0).getPostList().get(0).toString();
         String actual = bcTester.readPost(usersTest.get(1).getBlogList().get(0).getPostList().get(0));
@@ -66,7 +68,7 @@ class BlogControllerTest {
                 "User Test",
                 "user@test.com",
                 "user",
-                Role.ADMIN);
+                Role.USER);
 
         second.getBlogList().add(loadBlogTest(1,"Testing Blog Title","user","Sparrow"));
         second.getBlogList().get(0).getPostList().add(loadPost(1,"user", 1,"post title",
@@ -79,6 +81,7 @@ class BlogControllerTest {
         ));
 
         usersTest.add(user);
+        usersTest.add(second);
 
         return  usersTest;
     }

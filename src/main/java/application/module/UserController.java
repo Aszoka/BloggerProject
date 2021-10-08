@@ -22,13 +22,13 @@ public class UserController {
         allUsers = dbEngine.getAllUsers();
       //  System.out.println("search userinfo");
       //  getUserData(allUsers.get(0),"Poetrist");
-        User user = allUsers.get(3);
+      /*  User user = allUsers.get(3);
         System.out.println(user.getFullName());
         user.setFullName("Edgar A. Poe");
         changeOldUserData(user);
         System.out.println(user.getFullName());
         System.out.println("get user by role " + getUsersByRole(Role.ADMIN));
-        System.out.println(getUserData(allUsers.get(3), "sanyi823" ));
+        System.out.println(getUserData(allUsers.get(3), "sanyi823" ));*/
 
     }
 

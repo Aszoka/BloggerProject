@@ -1,6 +1,5 @@
 package application.module;
 
-import application.database.DBEngine;
 import application.model.blogs.Blog;
 import application.model.blogs.Comment;
 import application.model.blogs.Post;
@@ -10,17 +9,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class BlogControllerTest {
@@ -120,7 +114,7 @@ class BlogControllerTest {
         Comment expected = new Comment(commentId,commenter.getUsername(),commented.getPostID(),comment);
         Comment actual = bcTester.writeComment(commented,commenter,comment,commentId);
 
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertTrue(compareComments(expected, actual));
     }
 
     @Test
@@ -220,5 +214,17 @@ class BlogControllerTest {
         }
 
         return true;
+    }
+
+    private  boolean compareComments(Comment expected, Comment actual){
+
+        if (expected.getPostID() == actual.getPostID() &&
+                expected.getCommentID() == actual.getCommentID() &&
+                expected.getCommentAuthorID().equals(actual.getCommentAuthorID()) &&
+                expected.getCommentText().equals(actual.getCommentText())
+        ) {
+            return true;
+        }
+        return false;
     }
 }

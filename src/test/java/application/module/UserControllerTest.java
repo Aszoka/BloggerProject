@@ -16,8 +16,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserControllerTest {
 
 
-    private UserController ucTest = new UserController();
-    private List<User> testUserList = ucTest.getAllUsers();
+     UserController ucTest = new UserController();
+     List<User> testUserList = ucTest.getAllUsers();
+     User admin = testUserList.get(0);
+     User sanyi = testUserList.get(4);
 
 
     List<User> loadUserTest(){
@@ -90,6 +92,10 @@ class UserControllerTest {
 
     @Test
     void changeUserPassword() {
+        String input = "tyúkanyó";
+        long inputId = sanyi.getUser_id();
+
+        Assertions.assertTrue(ucTest.changeUserPassword(inputId,input));
     }
 
     private <T> boolean compareLists(List<T> expected, List<T> actual) {

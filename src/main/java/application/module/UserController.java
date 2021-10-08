@@ -70,6 +70,7 @@ public class UserController {
            return oldUserWithNewData;
     }
 
+    // todo: asking for old password, separate method before calling this
     public boolean changeUserPassword(long userId, String newPassword) {
 
         for(User u : allUsers){

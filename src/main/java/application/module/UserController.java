@@ -27,7 +27,8 @@ public class UserController {
         user.setFullName("Edgar A. Poe");
         changeOldUserData(user);
         System.out.println(user.getFullName());
-        System.out.println("get user by role " + getUsersByRole(Role.ADMIN));
+       // System.out.println("get user by role " + getUsersByRole(Role.ADMIN));
+        System.out.println("get user by role " + dbEngine.getUserDataByRole(Role.ADMIN));
         System.out.println(getUserData(dbEngine.loadUser("sanyi823"), "sanyi823" ));
 
     }

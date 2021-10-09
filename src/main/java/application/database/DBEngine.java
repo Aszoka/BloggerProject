@@ -273,5 +273,37 @@ public class DBEngine {
         return replyList;
     }
 
+    public List<User> getUserDataByRole(Role role){
+
+        String query = "SELECT * FROM USER WHERE ROLE = ?";
+
+        List<User> searchedUsers = new LinkedList<>();
+
+        ResultSet resultSet;
+        try {
+            resultSet = getResultSet(connection, query, role.getLabel());
+            while (resultSet.next()) {
+                long user_id = resultSet.getLong("user_id");
+                String userName = resultSet.getString("username");
+                String fullName = resultSet.getString("real_name");
+                String email = resultSet.getString("email_address");
+                Timestamp regTime = resultSet.getTimestamp("time_of_reg");
+                String password = resultSet.getString("user_password");
+                Role userRole = Role.valueOf(resultSet.getString("role").toUpperCase());
+
+               User user = new User(user_id, userName,fullName,email,regTime,password,userRole);
+                user.setBlogList(loadBlogsByUser(userName));
+                searchedUsers.add(user);
+
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return searchedUsers;
+    }
+
 
 }

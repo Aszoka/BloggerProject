@@ -104,6 +104,35 @@ public class DBEngine {
         return allUsers;
     }
 
+    public User loadUser(String username){
+        String query = "SELECT * FROM USER WHERE USERNAME = ?";
+
+        ResultSet resultSet;
+
+        User user = null;
+
+        try {
+            resultSet = getResultSet(connection, query, username);
+
+            while (resultSet.next()) {
+                long user_id = resultSet.getLong("user_id");
+                String userName = resultSet.getString("username");
+                String fullName = resultSet.getString("real_name");
+                String email = resultSet.getString("email_address");
+                Timestamp regTime = resultSet.getTimestamp("time_of_reg");
+                String password = resultSet.getString("user_password");
+                Role userRole = Role.valueOf(resultSet.getString("role").toUpperCase());
+
+                user = new User(user_id, userName,fullName,email,regTime,password,userRole);
+                user.setBlogList(loadBlogsByUser(userName));
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
     public List<Blog> loadBlogsByUser(String username){
         List<Blog> blogList = new LinkedList<>();
 
